@@ -15,6 +15,8 @@ public class ProductManagementPermissionDefinitionProvider : PermissionDefinitio
         ProductsPermisions.AddChild(ProductManagementPermissions.Products.Delete, L("Permission:Delete"));
 
 
+       // context.GetPermissionOrNull(ProductManagementPermissions.Products.Update).IsEnabled = false;
+
     }
 
     private static LocalizableString L(string name)

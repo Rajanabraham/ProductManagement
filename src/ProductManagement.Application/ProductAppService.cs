@@ -69,7 +69,7 @@ namespace ProductManagement
             var product = await _productRepository.GetAsync(id);
             ObjectMapper.Map(input, product);
         }
-        [Authorize(ProductManagementPermissions.Products.Delete)]
+        [Authorize("ProductManagement.Products.Delete")]
         public async Task DeleteAsync(Guid id)
         {
             await _productRepository.DeleteAsync(id);

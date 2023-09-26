@@ -1,4 +1,6 @@
 ﻿using Localization.Resources.AbpUi;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.DependencyInjection;
 using ProductManagement.Localization;
 using Volo.Abp.Account;
 using Volo.Abp.FeatureManagement;
@@ -24,6 +26,21 @@ public class ProductManagementHttpApiModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        Configure<AuthorizationOptions>(options =>
+        {
+            options.AddPolicy(
+                "ProductManagement.Products.Delete",
+                policy =>
+                {
+                    policy.Requirements.Add(
+                        new ProductCreationRequirement()
+                    );
+                });
+        });
+
+        context.Services.AddSingleton<
+            IAuthorizationHandler,
+            ProductCreationRequirementHandler>();
         ConfigureLocalization();
     }
 
